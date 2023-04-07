@@ -1,0 +1,4 @@
+*.cfg
+*.log
+output
+.DS_Store
