@@ -19,7 +19,7 @@ Example:
 
 Content of the config file:
 
-aappd_src_url='http://src_account.saas.appdynamics.com:443' # appd source controller url<br>
+appd_src_url='http://src_account.saas.appdynamics.com:443' # appd source controller url<br>
 appd_src_account='src_account' # appd account<br>
 appd_src_api_user='<user>' # appd api username<br>
 appd_src_api_password='<password>' # appd api password<br>
