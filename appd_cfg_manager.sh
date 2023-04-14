@@ -501,7 +501,8 @@ export_config() {
 # Migrate Functions
 #
 
-APPD_APP_CONFIG_MAP='
+APPD_APP_CONFIG_MAP="
+a=b,
 scopes=CONFIG20_SCOPES,
 rules=CONFIG20_RULES,
 backend-detection=BACKEND_DETECTION,
@@ -526,7 +527,7 @@ analytics-searches=ANALYTICS_SEARCH,
 analytics-metrics=ANALYTICS_METRICS,
 browser-eum-config=EUM_BROWSER_CONFIG,
 mobile-eum-config=EUM_MOBILE_CONFIG,
-synthetic-jobs=EUM_SYNTHETIC_JOBS'
+synthetic-jobs=EUM_SYNTHETIC_JOBS"
 
 get_migration_json_template() {
   src_controller_id=$1
@@ -539,7 +540,7 @@ get_migration_json_template() {
   IFS=','
   for entity in $app_config; do
     IFS=$PREV_IFS
-    entity_conv=`echo $APPD_APP_CONFIG_MAP | grep $entity | sed -E "s/^.*${entity}=([^,]+).*$/\1/"`
+    entity_conv=`echo $APPD_APP_CONFIG_MAP | sed -E "s/^.* ${entity}=([^,]+).*$/\1/"`
     [ -z "$entity_conv" -o ! -z "`echo $entity_conv | grep '='`" ] && die "Could not convert app config entity '$entity'."
     app_config_json="${app_config_json}, \"$entity_conv\""
     IFS=','
@@ -593,7 +594,8 @@ migrate_application_config() {
 
     # get application id on destination
     dst_id=`get_dst_id_from_src_app $src_name "$dst_applications_info"`
-    
+    # debug
+    dst_id='4252'
     # fixme: auto create application on destination
     [ -z "$dst_id" ] && warn "Could not migrate application: $src_name not found on destination. Please create the application first." && continue
     info "Found matching application $src_name ($dst_id) on destination"
@@ -602,7 +604,7 @@ migrate_application_config() {
     echo "$json_temp" | sed "s/%srcApplicationId%/$src_id/" | sed "s/%destApplicationId%/$dst_id/" > $json_config_path
 
     # migrate application
-    my_curl false -H "Content-Type: application/json" --data @${json_config_path} "${config_exporter_url}/api/rest/app-config"
+    my_curl false -H "Content-Type: application/json" --data @${json_config_path} "${config_exporter_url}/api/rest/app-config" > /dev/null
 
     IFS=','
   done
