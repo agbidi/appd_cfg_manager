@@ -594,8 +594,7 @@ migrate_application_config() {
 
     # get application id on destination
     dst_id=`get_dst_id_from_src_app $src_name "$dst_applications_info"`
-    # debug
-    dst_id='4252'
+
     # fixme: auto create application on destination
     [ -z "$dst_id" ] && warn "Could not migrate application: $src_name not found on destination. Please create the application first." && continue
     info "Found matching application $src_name ($dst_id) on destination"
