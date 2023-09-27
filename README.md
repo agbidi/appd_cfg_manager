@@ -37,11 +37,11 @@ appd_application_config='scopes,rules,backend-detection,exit-points,info-points,
 bt-config,data-collectors,call-graph-settings,error-detection,jmx-rules,appagent-properties,
 service-endpoint-detection,slow-transaction-thresholds,eum-app-integration,async-config,
 health-rules,actions,policies,metric-baselines,
-browser-eum-config,mobile-eum-config,synthetic-jobs'<br>
-appd_account_config='admin-settings,http-templates,email-templates,email-sms-config,license-rules,dashboards,database,server,analytics'<br>
+browser-eum-config,mobile-eum-config,synthetic-jobs' # app config <br>
+appd_account_config='admin-settings,http-templates,email-templates,email-sms-config,license-rules,dashboards,database,server,analytics' # account config <br>
 
 config_exporter_url='http://localhost:8282' # config exporter url. Make sure you have an instance running or use the --run option<br>
-output_dir='./output'<br>
-create_app_on_export='true'<br>
-create_tier_on_export='true'<br>
-overwrite_on_export='true'<br>
+output_dir='./output' # output dir<br>
+create_app_on_export='true' # create application on export <br>
+create_tier_on_export='true' # create tier on export <br>
+overwrite_on_export='true' # overwrite on export <br>
